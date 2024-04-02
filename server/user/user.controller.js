@@ -2,26 +2,32 @@ const bcrypt = require("bcrypt");
 const UserModel = require("./user.model");
 const { ERROR_CODES } = require('../../lib/error/errorCodes')
 const jwt = require("../../lib/auth/jwt");
+const { success } = require("../../lib/auth/res")
 
 exports.Register = async (req, res) => {
   const { email, password } = req.body;
   const user = await UserModel.findOne({ email });
   if (user) throw new Error(ERROR_CODES.USER_ALREADY_EXISTS);
 
-  const hashedPassword = await bcrypt.hash(password, process.env.SALT);
+  const hashedPassword = await bcrypt.hash(password, parseInt(process.env.SALT));
   await UserModel.create({ email, password: hashedPassword });
-  const tokens = await getTokens(newUser);
-  return res.status(201).json(tokens);
+  const data = {
+    accessToken: jwt.generateAccessToken({ email }),
+    refreshToken: jwt.generateRefreshToken({ email })
+  }
+  return success(res, data)
+
 };
 
-exports.Register = async (req, res) => {
-  const user = await UserModel.findOne({ email });
-  if (user) throw new Error(ERROR_CODES.USER_ALREADY_EXISTS);
+exports.Login = async (req, res) => {
   const { email, password } = req.body;
-  const newUser = new UserModel(req.body);
-  const hashedPassword = await bcrypt.hash(password, 10);
-  newUser.password = hashedPassword;
-  await UserModel.create({ email, password: hashedPassword });
-  const tokens = await getTokens(newUser)
-  return res.status(201).json(tokens);
+  const user = await UserModel.findOne({ email });
+  if (!user) throw new Error(ERROR_CODES.NOT_FOUND);
+  const passwordMatch = await bcrypt.compare(password, user.password)
+  if (!passwordMatch) throw new Error(ERROR_CODES.UNAUTHORIZED)
+  const data = {
+    accessToken: jwt.generateAccessToken({ email }),
+    refreshToken: jwt.generateRefreshToken({ email })
+  }
+  return success(res, data)
 };
