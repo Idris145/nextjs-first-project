@@ -1,8 +1,15 @@
-.sign-up-form-wrapper {
+.sign-in-form-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
+}
+
+.sign-up-box {
+  border: 1px solid #1d8cdb;
+  background-color: #ffffff;
+  padding: 30px 20px 10px 20px;
+  border-radius: 15px;
 }
 
 .input-wrapper {
@@ -10,11 +17,18 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-bottom: 10px; /* Adjust the space between input groups */
+  margin-bottom: 10px;
 }
 
-/* You may need to adjust the widths or add additional classes to style the labels and inputs specifically */
 .CustomInputLabel,
 .CustomInput {
-  margin-right: 10px; /* Adds some space between the label and the input */
+  margin-right: 10px;
+}
+
+.button-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 30px;
 }

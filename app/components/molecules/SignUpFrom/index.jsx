@@ -8,28 +8,23 @@ import "./signUpForm.css";
 export default function SignUpForm() {
   return (
     <div className="sign-up-form-wrapper">
-      <p>Welcome!</p>
-      <br />
-      <div>
+      <div className="sign-up-box">
         <div className="input-wrapper">
-          <CustomInputLabel text={"Email"} />
-          <CustomInput />
+          <CustomInput placeholder={"Email"} />
         </div>
         <div className="input-wrapper">
-          <CustomInputLabel text={"First Name"} />
-          <CustomInput />
+          <CustomInput placeholder={"First Name"} />
         </div>
         <div className="input-wrapper">
-          <CustomInputLabel text={"Last Name"} />
-          <CustomInput />
+          <CustomInput placeholder={"Last Name"} />
         </div>
         <div className="input-wrapper">
-          <CustomInputLabel text={"Password"} />
-          <CustomInput type="password" />
+          <CustomInput type="password" placeholder={"Password"} />
+        </div>
+        <div className="button-wrapper">
+          <CustomButton text={"Sign Up"} />
         </div>
       </div>
-      <br />
-      <CustomButton text={"Sign Up"} />
     </div>
   );
 }
