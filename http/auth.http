@@ -1,0 +1,27 @@
+@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGZjMzJhZjIwYTUzZmYwOTcyZTRlNiIsInJvbGUiOiJzdXBlckFkbWluIiwiaWF0IjoxNjUzNTg4ODQ3LCJleHAiOjE2NTM2MTA0NDd9.klHikAsRnt21q9Z2-SPf36TJemhJTCQQWhQgOL3O8Us
+### Login
+POST {{$dotenv SERVER_URL}}/user/register HTTP/1.1
+content-type: application/json 
+
+{
+    "email" : "aaasssa",
+    "password" : "dsaa" 
+}
+
+### Login
+POST {{$dotenv SERVER_URL}}/user/login HTTP/1.1
+content-type: application/json 
+
+{
+    "email" : "aaasssa",
+    "password" : "dsaa" 
+}
+
+### Login
+GET {{$dotenv SERVER_URL}}/user/me?email=dsffasfsa HTTP/1.1
+content-type: application/json 
+
+{
+    "email" : "aaasssa",
+    "password" : "dsaa" 
+}

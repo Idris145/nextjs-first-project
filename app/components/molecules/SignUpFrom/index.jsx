@@ -1,28 +1,25 @@
+'use client'
 import React from "react";
-import CustomButton from "../../atoms/CustomButton";
-import CustomInput from "../../atoms/CustomInput";
-import CustomInputLabel from "../../atoms/CustomInputLabel";
+import useSignUpStore from "../../../stores/signUpStore";
+import { Button, Input, CircularProgress } from "@mui/material";
 
 import "./signUpForm.css";
 
 export default function SignUpForm() {
+  const { handleChangeEmail, handleChangePassword, handleClickSignUp, loading } = useSignUpStore();
   return (
     <div className="sign-up-form-wrapper">
       <div className="sign-up-box">
         <div className="input-wrapper">
-          <CustomInput placeholder={"Email"} />
+          <Input placeholder={"Email"} onChange={(e) => handleChangeEmail(e.target.value)} />
         </div>
         <div className="input-wrapper">
-          <CustomInput placeholder={"First Name"} />
-        </div>
-        <div className="input-wrapper">
-          <CustomInput placeholder={"Last Name"} />
-        </div>
-        <div className="input-wrapper">
-          <CustomInput type="password" placeholder={"Password"} />
+          <Input type="password" placeholder={"Password"} onChange={(e) => handleChangePassword(e.target.value)} />
         </div>
         <div className="button-wrapper">
-          <CustomButton text={"Sign Up"} />
+          {!loading
+            ? <Button onClick={handleClickSignUp} >Sign Up</Button>
+            : <CircularProgress />}
         </div>
       </div>
     </div>

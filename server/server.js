@@ -8,10 +8,15 @@ const connectToDB = require('../database')
 
 connectToDB()
 
-const port = process.env.PORT
+const port = process.env.SERVER_PORT
 app.use(express.json())
-app.use(cors())
 
+const corsOptions = {
+  origin: 'http://localhost:8080', 
+  credentials: true
+};
+
+app.use(cors(corsOptions));
 
 app.use('/user', require('./user/user.routes'))
 

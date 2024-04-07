@@ -16,7 +16,6 @@ exports.Register = async (req, res) => {
     refreshToken: jwt.generateRefreshToken({ email })
   }
   return success(res, data)
-
 };
 
 exports.Login = async (req, res) => {
@@ -25,6 +24,22 @@ exports.Login = async (req, res) => {
   if (!user) throw new Error(ERROR_CODES.NOT_FOUND);
   const passwordMatch = await bcrypt.compare(password, user.password)
   if (!passwordMatch) throw new Error(ERROR_CODES.UNAUTHORIZED)
+  const data = {
+    accessToken: jwt.generateAccessToken({ email }),
+    refreshToken: jwt.generateRefreshToken({ email })
+  }
+  return success(res, data)
+};
+
+exports.Me = async (req, res) => {
+  const { email } = req.params;
+  const user = await UserModel.findOne({ email });
+  if (!user) throw new Error(ERROR_CODES.NOT_FOUND);
+  return success(res, user)
+};
+
+exports.Refresh = async (req, res) => {
+  const { email } = req.user
   const data = {
     accessToken: jwt.generateAccessToken({ email }),
     refreshToken: jwt.generateRefreshToken({ email })
